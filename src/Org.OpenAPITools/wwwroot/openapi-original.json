@@ -1,0 +1,110 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "description" : "API для управления артистами, альбомами и песнями в музыкальном каталоге.",
+    "title" : "Sample Music Catalog API",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080"
+  } ],
+  "paths" : {
+    "/artists" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Artist"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "Список артистов"
+          }
+        },
+        "summary" : "Получить список артистов"
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Artist"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Артист добавлен"
+          }
+        },
+        "summary" : "Добавить нового артиста"
+      }
+    },
+    "/artists/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Artist"
+                }
+              }
+            },
+            "description" : "Информация об артисте"
+          },
+          "404" : {
+            "description" : "Артист не найден"
+          }
+        },
+        "summary" : "Получить информацию об артисте по ID"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Artist" : {
+        "example" : {
+          "albums" : [ "albums", "albums" ],
+          "name" : "name",
+          "genre" : "genre",
+          "id" : "id"
+        },
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "genre" : {
+            "type" : "string"
+          },
+          "albums" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      }
+    }
+  }
+}

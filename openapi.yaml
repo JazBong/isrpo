@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: Sample Music Catalog API
+  description: API для управления артистами, альбомами и песнями в музыкальном каталоге.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /artists:
+    get:
+      summary: Получить список артистов
+      responses:
+        '200':
+          description: Список артистов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Artist'
+    post:
+      summary: Добавить нового артиста
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Artist'
+      responses:
+        '201':
+          description: Артист добавлен
+
+  /artists/{id}:
+    get:
+      summary: Получить информацию об артисте по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Информация об артисте
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artist'
+        '404':
+          description: Артист не найден
+
+components:
+  schemas:
+    Artist:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        genre:
+          type: string
+        albums:
+          type: array
+          items:
+            type: string

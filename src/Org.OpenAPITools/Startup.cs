@@ -20,6 +20,8 @@ namespace Org.OpenAPITools
 {
     public class Startup
     {
+	internal static readonly Counter CatalogEntriesCounter = Metrics.CreateCounter("catalog_entries_total", "Total number of entries in the music catalog.");
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

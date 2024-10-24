@@ -19,6 +19,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using Org.OpenAPITools.Attributes;
 using Org.OpenAPITools.Models;
+using Prometheus;
 
 namespace Org.OpenAPITools.Controllers
 { 
@@ -92,11 +93,13 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerOperation("ArtistsPost")]
         public virtual IActionResult ArtistsPost([FromBody]Artist artist)
         {
+	// TODO: Реализовать логику добавления артиста в базу данных
 
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201);
+    	// Увеличиваем счётчик на единицу при добавлении нового артиста
+    	Startup.CatalogEntriesCounter.Inc();
 
-            throw new NotImplementedException();
+    	// Возвращаем статус 201 для подтверждения добавления
+    	return StatusCode(201);
         }
     }
 }

@@ -1,0 +1,18 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 9085
+
+positions:
+  filename: C:/Users/mrsta/Desktop/isrpo/generated-server/src/Org.OpenAPITools/logs/positions.yaml
+
+clients:
+  - url: http://localhost:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: myapp-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: myapp-logs
+          __path__: C:/Users/mrsta/Desktop/isrpo/generated-server/src/Org.OpenAPITools/logs/*.log

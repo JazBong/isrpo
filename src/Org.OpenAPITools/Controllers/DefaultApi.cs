@@ -20,12 +20,11 @@ using Newtonsoft.Json;
 using Org.OpenAPITools.Attributes;
 using Org.OpenAPITools.Models;
 using Prometheus;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Org.OpenAPITools.Controllers
 { 
-    /// <summary>
-    /// 
-    /// </summary>
     [ApiController]
     public class DefaultApiController : ControllerBase
     { 
@@ -33,24 +32,37 @@ namespace Org.OpenAPITools.Controllers
         /// Получить список артистов
         /// </summary>
         /// <response code="200">Список артистов</response>
+        
+        private static readonly ActivitySource ActivitySource = new ActivitySource("MyAppTracer");
+
         [HttpGet]
         [Route("/artists")]
         [ValidateModelState]
         [SwaggerOperation("ArtistsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Artist>), description: "Список артистов")]
-        public virtual IActionResult ArtistsGet()
+        public virtual async Task<IActionResult> ArtistsGet()
         {
+            using (var activity = ActivitySource.StartActivity("ArtistsGetOperation"))
+            {
+                Console.WriteLine("Test 1");
+                activity?.SetTag("endpoint", "/artists");
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<Artist>));
-            string exampleJson = null;
-            exampleJson = "[ {\r\n  \"albums\" : [ \"albums\", \"albums\" ],\r\n  \"name\" : \"name\",\r\n  \"genre\" : \"genre\",\r\n  \"id\" : \"id\"\r\n}, {\r\n  \"albums\" : [ \"albums\", \"albums\" ],\r\n  \"name\" : \"name\",\r\n  \"genre\" : \"genre\",\r\n  \"id\" : \"id\"\r\n} ]";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<Artist>>(exampleJson)
-            : default(List<Artist>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+                // Добавление случайной задержки
+                await Task.Delay(new Random().Next(100, 500));
+
+                // Симуляция случайной ошибки
+                if (new Random().Next(0, 10) > 7) // Примерно 30% шанс ошибки
+                {
+                    var exception = new Exception("Simulated exception in ArtistsGet");
+                    Console.WriteLine("Test Error");
+                    activity?.SetStatus(ActivityStatusCode.Error, exception.Message);
+                    throw exception;
+                }
+
+                string exampleJson = "[{\"albums\": [\"albums\", \"albums\"], \"name\": \"name\", \"genre\": \"genre\", \"id\": \"id\"}]";
+                var example = JsonConvert.DeserializeObject<List<Artist>>(exampleJson);
+                return new ObjectResult(example);
+            }
         }
 
         /// <summary>

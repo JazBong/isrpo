@@ -20,7 +20,7 @@ namespace Org.OpenAPITools
 {
     public class Startup
     {
-	internal static readonly Counter CatalogEntriesCounter = Metrics.CreateCounter("catalog_entries_total", "Total number of entries in the music catalog.");
+        internal static readonly Counter CatalogEntriesCounter = Metrics.CreateCounter("catalog_entries_total", "Total number of entries in the music catalog.");
 
         public Startup(IConfiguration configuration)
         {
@@ -44,13 +44,13 @@ namespace Org.OpenAPITools
                         NamingStrategy = new CamelCaseNamingStrategy()
                     });
                 });
-            
+
             // Добавляем метрики, задавая порт для сервера
             services.AddSingleton<KestrelMetricServer>(provider =>
             {
                 return new KestrelMetricServer(port: 1234);
             });
-            
+
             services
                 .AddSwaggerGen(c =>
                 {

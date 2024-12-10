@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 using Org.OpenAPITools.Converters;
 
 namespace Org.OpenAPITools.Models
-{ 
+{
     /// <summary>
     /// 
     /// </summary>
@@ -29,25 +29,25 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name = "id", EmitDefaultValue = false)]
         public string Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name = "name", EmitDefaultValue = false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets Genre
         /// </summary>
-        [DataMember(Name="genre", EmitDefaultValue=false)]
+        [DataMember(Name = "genre", EmitDefaultValue = false)]
         public string Genre { get; set; }
 
         /// <summary>
         /// Gets or Sets Albums
         /// </summary>
-        [DataMember(Name="albums", EmitDefaultValue=false)]
+        [DataMember(Name = "albums", EmitDefaultValue = false)]
         public List<string> Albums { get; set; }
 
         /// <summary>
@@ -97,22 +97,22 @@ namespace Org.OpenAPITools.Models
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return 
+            return
                 (
                     Id == other.Id ||
                     Id != null &&
                     Id.Equals(other.Id)
-                ) && 
+                ) &&
                 (
                     Name == other.Name ||
                     Name != null &&
                     Name.Equals(other.Name)
-                ) && 
+                ) &&
                 (
                     Genre == other.Genre ||
                     Genre != null &&
                     Genre.Equals(other.Genre)
-                ) && 
+                ) &&
                 (
                     Albums == other.Albums ||
                     Albums != null &&
@@ -131,20 +131,20 @@ namespace Org.OpenAPITools.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Id != null)
+                if (Id != null)
                     hashCode = hashCode * 59 + Id.GetHashCode();
-                    if (Name != null)
+                if (Name != null)
                     hashCode = hashCode * 59 + Name.GetHashCode();
-                    if (Genre != null)
+                if (Genre != null)
                     hashCode = hashCode * 59 + Genre.GetHashCode();
-                    if (Albums != null)
+                if (Albums != null)
                     hashCode = hashCode * 59 + Albums.GetHashCode();
                 return hashCode;
             }
         }
 
         #region Operators
-        #pragma warning disable 1591
+#pragma warning disable 1591
 
         public static bool operator ==(Artist left, Artist right)
         {
@@ -156,7 +156,7 @@ namespace Org.OpenAPITools.Models
             return !Equals(left, right);
         }
 
-        #pragma warning restore 1591
+#pragma warning restore 1591
         #endregion Operators
     }
 }

@@ -24,15 +24,15 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Org.OpenAPITools.Controllers
-{ 
+{
     [ApiController]
     public class DefaultApiController : ControllerBase
-    { 
+    {
         /// <summary>
         /// Получить список артистов
         /// </summary>
         /// <response code="200">Список артистов</response>
-        
+
         private static readonly ActivitySource ActivitySource = new ActivitySource("MyAppTracer");
 
         [HttpGet]
@@ -76,7 +76,7 @@ namespace Org.OpenAPITools.Controllers
         [ValidateModelState]
         [SwaggerOperation("ArtistsIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Artist), description: "Информация об артисте")]
-        public virtual IActionResult ArtistsIdGet([FromRoute (Name = "id")][Required]string id)
+        public virtual IActionResult ArtistsIdGet([FromRoute(Name = "id")][Required] string id)
         {
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -85,7 +85,7 @@ namespace Org.OpenAPITools.Controllers
             // return StatusCode(404);
             string exampleJson = null;
             exampleJson = "{\r\n  \"albums\" : [ \"albums\", \"albums\" ],\r\n  \"name\" : \"name\",\r\n  \"genre\" : \"genre\",\r\n  \"id\" : \"id\"\r\n}";
-            
+
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Artist>(exampleJson)
             : default(Artist);
@@ -103,15 +103,15 @@ namespace Org.OpenAPITools.Controllers
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("ArtistsPost")]
-        public virtual IActionResult ArtistsPost([FromBody]Artist artist)
+        public virtual IActionResult ArtistsPost([FromBody] Artist artist)
         {
-	// TODO: Реализовать логику добавления артиста в базу данных
+            // TODO: Реализовать логику добавления артиста в базу данных
 
-    	// Увеличиваем счётчик на единицу при добавлении нового артиста
-    	Startup.CatalogEntriesCounter.Inc();
+            // Увеличиваем счётчик на единицу при добавлении нового артиста
+            Startup.CatalogEntriesCounter.Inc();
 
-    	// Возвращаем статус 201 для подтверждения добавления
-    	return StatusCode(201);
+            // Возвращаем статус 201 для подтверждения добавления
+            return StatusCode(201);
         }
     }
 }
